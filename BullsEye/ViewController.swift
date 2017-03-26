@@ -19,11 +19,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Code to set the correct slider number on startup
-        currentValue = lroundf(slider.value)
-        
-        // Code to generator a random number. The highest number would be 99
-        targetValue = 1 + Int(arc4random_uniform(100))
+        // Code to call the method below
+        startNewRound()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,6 +37,8 @@ class ViewController: UIViewController {
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+        
+        startNewRound()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
