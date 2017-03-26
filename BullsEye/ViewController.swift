@@ -12,12 +12,18 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var slider: UISlider!
     
-    var currentValue: Int = 50
+    var currentValue: Int = 0
+    
+    var targetValue: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Code to set the correct slider number on startup
         currentValue = lroundf(slider.value)
+        
+        // Code to generator a random number. The highest number would be 99
+        targetValue = 1 + Int(arc4random_uniform(100))
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,7 +32,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showAlert() {
-        let message = "The value of the slider is: \(currentValue)"
+        let message = "The value of the slider is: \(currentValue)" + "\nThe target value is: \(targetValue)"
         
         let alert = UIAlertController(title: "Hello, World", message: message, preferredStyle: .alert)
         
@@ -38,6 +44,12 @@ class ViewController: UIViewController {
     
     @IBAction func sliderMoved(_ slider: UISlider) {
         currentValue = lroundf(slider.value)
+    }
+    
+    func startNewRound() {
+        targetValue = 1 + Int(arc4random_uniform(100))
+        currentValue = 50
+        slider.value = Float(currentValue)
     }
 }
 
