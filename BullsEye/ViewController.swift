@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var targetLabel: UILabel!
     
     var currentValue: Int = 0
     
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
         
         // Code to call the method below
         startNewRound()
+        updateLabels()
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,6 +41,7 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
         
         startNewRound()
+        updateLabels()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
@@ -49,6 +52,10 @@ class ViewController: UIViewController {
         targetValue = 1 + Int(arc4random_uniform(100))
         currentValue = 50
         slider.value = Float(currentValue)
+    }
+    
+    func updateLabels() {
+        targetLabel.text = String(targetValue)
     }
 }
 
