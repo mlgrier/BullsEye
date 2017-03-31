@@ -10,21 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var currentValue: Int = 0
+    var targetValue: Int = 0
+    var score: Int = 0
+    var round: Int = 0
+    
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var roundLabel: UILabel!
     
-    var currentValue: Int = 0
-    var targetValue: Int = 0
-    var score: Int = 0
-    var round: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Code to call the method below
-        startNewRound()
+        startNewGame()
         updateLabels()
     }
 
@@ -57,17 +58,23 @@ class ViewController: UIViewController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .default, handler: { action in
+                                                                                self.startNewRound()
+                                                                                self.updateLabels()
+                                                                            })
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
         
-        startNewRound()
-        updateLabels()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
         currentValue = lroundf(slider.value)
+    }
+    
+    @IBAction func startOver() {
+        startNewGame()
+        updateLabels()
     }
     
     func startNewRound() {
@@ -78,10 +85,17 @@ class ViewController: UIViewController {
         
     }
     
+    
     func updateLabels() {
         targetLabel.text = String(targetValue)
         scoreLabel.text = String(score)
         roundLabel.text = String(round)
+    }
+    
+    func startNewGame() {
+        score = 0
+        round = 0
+        startNewRound()
     }
     
 }
